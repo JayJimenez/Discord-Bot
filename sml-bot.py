@@ -1,9 +1,10 @@
 import discord
 from discord.ext import commands
 from congress import Congress
+from token import token
 
 
-TOKEN = ""
+TOKEN = "token"
 
 bot = commands.Bot(command_prefix='>')  
 
