@@ -23,6 +23,10 @@ class Congress(commands.Cog):
     @commands.command(name = "present-bill")
     async def present_bill(self,ctx, arg: commands.clean_content(use_nicknames=True, escape_markdown=True), arg2: commands.clean_content(use_nicknames=True, escape_markdown=True)):
         global author
+        global totalNays
+        global totalYays
+        totalYays = 0
+        totalNays = 0
         author = ctx.author
         embedVar = discord.Embed(title=f"Congress Session #{sessionNumber}", description = f"Our session will begin shortly. {ctx.author} has presented the following bill to the floor to be voted upon : ", color=0x00ff40)
         embedVar.set_thumbnail(url="https://lawrjb.com/wp-content/uploads/2019/12/2060-Law-Book.png")
@@ -35,12 +39,18 @@ class Congress(commands.Cog):
 
         if arg.lower() == 'y':
             global totalYays
-            totalYays += 1
-            await ctx.send(f"{ctx.author}\'s vote has been tallied", delete_after=2)
+            totalYays += 1  
+            await ctx.message.delete()
+            await ctx.send(f"{ctx.author}\'s vote has been tallied")
+            
         elif arg.lower() == 'n':
             global totalNays
             totalNays += 1
-            await ctx.send(f"{ctx.author}\'s vote has been tallied", delete_after=2)
+            await ctx.message.delete()
+            await ctx.send(f"{ctx.author}\'s vote has been tallied")
+            
+        elif arg.lower() == 'np':
+            pass
         else:
             await ctx.send("Invalid Vote - Please insert Y for Yes, N for No.", delete_after=5)
                   
